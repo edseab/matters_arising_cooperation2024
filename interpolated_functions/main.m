@@ -153,7 +153,7 @@ int main(int argc, const char *argv[])  {
 	FILE *disaggFinalPeriodSim = fopen(argv[17],"w"); 
 	if (printDisaggFinalPeriodSim == 1)
 	{
-		fprintf(disaggFinalPeriodSim,"sim	gen	agent	group	initTransferIn	b00	b01	b01	b11	partnerIn	partnerInitTransferIn	partnerb00	partnerb01	partnerb10	partnerb11 firstMoverIn	interactIn	numInteractionsIn	initTransferOut	intLeftOut	intRightOut	outGroup	partnerOut	partnerInitTransferOut	partnerIntLeftOut	partnerIntRightOut	firstMoverOut	interactOut	numInteractionsOut	fitnessIn	fitnessOut	fitness	fitnessAsCumProp	groupWinsConflict\n");
+		fprintf(disaggFinalPeriodSim,"sim	gen	agent	group	initTransferIn	b00	b01	b10	b11	partnerIn	partnerInitTransferIn	partnerb00	partnerb01	partnerb10	partnerb11 firstMoverIn	interactIn	numInteractionsIn	initTransferOut	intLeftOut	intRightOut	outGroup	partnerOut	partnerInitTransferOut	partnerIntLeftOut	partnerIntRightOut	firstMoverOut	interactOut	numInteractionsOut	fitnessIn	fitnessOut	fitness	fitnessAsCumProp	groupWinsConflict\n");
 	}
 	
 	// Output file for aggregated data, recorded periodically, e.g. every 100 generations.

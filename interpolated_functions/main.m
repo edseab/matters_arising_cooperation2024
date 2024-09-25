@@ -160,7 +160,7 @@ int main(int argc, const char *argv[])  {
 	FILE *aggPeriodic = fopen(argv[18],"w");
 	if (printAggOutput == 1)
 	{
-		fprintf(aggPeriodic,"sim	gen	meanInitTransferIn	meanb00	meanb01	meanb10	meanb11	varInitTransferIn	varb00	varb01 varb10	varb11	varWithinInitTransferIn	varWithinb00	varWithinb01	varBtwnInitTransferIn	varBtwnb00	varBtwnb01	meanInitTransferOut	meanIntLeftOut	meanIntRightOut	varInitTransferOut	varIntLeftOut	varIntRightOut	varWithinInitTransferOut	varWithinIntLeftOut	varWithinIntRightOut	varBtwnInitTransferOut	varBtwnIntLeftOut	varBtwnIntRightOut	meanFitness	varFitness	varWithinFitness	varBtwnFitness	percSelfish	percDeEsc	percQuasiDe	percAmbi	percPerfect	percEsc	percQuasiEsc	percGenerous\n");
+		fprintf(aggPeriodic,"sim	gen	meanInitTransferIn	meanb00	meanb01	meanb10	meanb11	varInitTransferIn	varb00	varb01 varb10	varb11	varWithinInitTransferIn	varWithinb00	varWithinb01	varBtwnInitTransferIn	varBtwnb00	varBtwnb01	meanInitTransferOut	meanIntLeftOut	meanIntRightOut	varInitTransferOut	varIntLeftOut	varIntRightOut	varWithinInitTransferOut	varWithinIntLeftOut	varWithinIntRightOut	varBtwnInitTransferOut	varBtwnIntLeftOut	varBtwnIntRightOut	meanFitness	varFitness	varWithinFitness	varBtwnFitness\n");
 	}
 	
 	// Output file to record the differences btwn pairs of groups.

@@ -18,8 +18,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 int main(int argc, const char *argv[])  {
 
 	gsl_rng *gen = gsl_rng_alloc(gsl_rng_mt19937);				// Allocate gsl_rng version of Mersenne twister.
-	gsl_rng_set(gen,atoi(argv[23]));						// Seed gsl_rng version of Mersenne twister. NEW by Seabright: setting seed in arguments
-	init_genrand(atoi(argv[23]));							// Seed standard Mersenne Twister. NEW by Seabright: setting seed in arguments
+	gsl_rng_set(gen,atoi(argv[24]));						// Seed gsl_rng version of Mersenne twister. NEW by Seabright: setting seed in arguments
+	init_genrand(atoi(argv[24]));							// Seed standard Mersenne Twister. NEW by Seabright: setting seed in arguments
 	
 	// Acquire or specify needed parameters for the simulations.
 	int numAgents = 960;	
@@ -42,29 +42,29 @@ int main(int argc, const char *argv[])  {
 	
 	double probMutate = atof(argv[12]);
 	double mutLatStepInitTransfer = 0.025;						// Mutations occur on a lattice to avoid truncation at the boundaries.  The lattice step with respect to initial transfer values.
-	double mutLatStepIntercepts = 0.025;						// Mutations occur on a lattice to avoid truncation at the boundaries.  The lattice step with respect to the left and right intercepts for the response function.  
+	double mutLatStepIntercepts = atof(argv[13]);						// Mutations occur on a lattice to avoid truncation at the boundaries.  The lattice step with respect to the left and right intercepts for the response function.  
 
-	int mutLatMaxStepIntercepts = atof(argv[13]);						// NEW Added by Seabright: Mutants can take up to this number of steps on the lattice in either direction.
+	int mutLatMaxStepIntercepts = atoi(argv[14]);						// NEW Added by Seabright: Mutants can take up to this number of steps on the lattice in either direction.
 
-	int numAgentsMigratePerGroup = atoi(argv[14]);
+	int numAgentsMigratePerGroup = atoi(argv[15]);
 	
 	double probRecordDiffBtwnGroups = 0.0005;					// Probabilistic recording of differences (e.g. total fitness values) between paired groups.
 	int printDisaggFinalPeriodSim = 1;
 	int printAggOutput = 1; 
-	int initCond = atoi(argv[15]); 								// 1 is allSelfishMin, 2 is allRandom, and 3 is allPerfRecMax. 
-	int gameSelectionCoupled = atoi(argv[16]); 					// 1 means migration immediately precedes game play.  0 means migration immediately follows game play.
+	int initCond = atoi(argv[16]); 								// 1 is allSelfishMin, 2 is allRandom, and 3 is allPerfRecMax. 
+	int gameSelectionCoupled = atoi(argv[17]); 					// 1 means migration immediately precedes game play.  0 means migration immediately follows game play.
 
 	// NEW FEATURES (Added by Seabright)
 
 	// 1. Categorical strategy space
 
-	int categorical = atoi(argv[17]);                           // 1. means response functions are selected from preset list any of which can arise via mutation. 0 means the original model is implemented
+	int categorical = atoi(argv[18]);                           // 1. means response functions are selected from preset list any of which can arise via mutation. 0 means the original model is implemented
     
 	// 2. Revenge Threshold: Agents can choose to play full selfishness if their partner ever de-escalates beyond a certain threshold
 
-	int Revenge = atoi(argv[18]);  // Binary 1/0, if 0 then there is no revenge threshold
+	int Revenge = atoi(argv[19]);  // Binary 1/0, if 0 then there is no revenge threshold
 
-	double StartRevengeThresh = atof(argv[19]); // Initial value of revenge threshold. If 0 then no tolerance for any de-escalation. If 1 then full tolerance.
+	double StartRevengeThresh = atof(argv[20]); // Initial value of revenge threshold. If 0 then no tolerance for any de-escalation. If 1 then full tolerance.
 
 	double mutLatStepRevengeThresh = 0.025;  // Mutations occur on a lattice in the same way as the other parameters.  The lattice step with respect to the tolerance threshold.
 
@@ -176,21 +176,21 @@ int main(int argc, const char *argv[])  {
 
 
 	// Output file for disaggregated data for the final period/generation of each simulation.
-	FILE *disaggFinalPeriodSim = fopen(argv[20],"w"); 
+	FILE *disaggFinalPeriodSim = fopen(argv[21],"w"); 
 	if (printDisaggFinalPeriodSim == 1)
 	{
-		fprintf(disaggFinalPeriodSim,"sim	gen	agent	group	initTransferIn	intLeftIn	intRightIn	RevengeThresh   partnerIn	partnerInitTransferIn	partnerIntLeftIn	partnerIntRightIn	PartnerRevengeThresh firstMoverIn	interactIn	numInteractionsIn	initTransferOut	intLeftOut	intRightOut	outGroup	partnerOut	partnerInitTransferOut	partnerIntLeftOut	partnerIntRightOut	firstMoverOut	interactOut	numInteractionsOut	fitnessIn	fitnessOut	fitness	fitnessAsCumProp	groupWinsConflict\n");
+		fprintf(disaggFinalPeriodSim,"sim	gen	agent	group	initTransferIn	intLeftIn	intRightIn	RevengeThresh	partnerIn	partnerInitTransferIn	partnerIntLeftIn	partnerIntRightIn	PartnerRevengeThresh	firstMoverIn	interactIn	numInteractionsIn	initTransferOut	intLeftOut	intRightOut	outGroup	partnerOut	partnerInitTransferOut	partnerIntLeftOut	partnerIntRightOut	firstMoverOut	interactOut	numInteractionsOut	fitnessIn	fitnessOut	fitness	fitnessAsCumProp	groupWinsConflict\n");
 	}
 	
 	// Output file for aggregated data, recorded periodically, e.g. every 100 generations.
-	FILE *aggPeriodic = fopen(argv[21],"w");
+	FILE *aggPeriodic = fopen(argv[22],"w");
 	if (printAggOutput == 1)
 	{
 		fprintf(aggPeriodic,"sim	gen	meanInitTransferIn	meanIntLeftIn	meanIntRightIn	meanRevengeThresh	varInitTransferIn	varIntLeftIn	varIntRightIn	varRevengeThresh	varWithinInitTransferIn	varWithinIntLeftIn	varWithinIntRightIn	varBtwnInitTransferIn	varBtwnIntLeftIn	varBtwnIntRightIn	meanInitTransferOut	meanIntLeftOut	meanIntRightOut	varInitTransferOut	varIntLeftOut	varIntRightOut	varWithinInitTransferOut	varWithinIntLeftOut	varWithinIntRightOut	varBtwnInitTransferOut	varBtwnIntLeftOut	varBtwnIntRightOut	meanFitness	varFitness	varWithinFitness	varBtwnFitness	percSelfish	percDeEsc	percQuasiDe	percAmbi	percPerfect	percEsc	percQuasiEsc	percGenerous\n");
 	}
 	
 	// Output file to record the differences btwn pairs of groups.
-	FILE *diffBetweenGroups = fopen(argv[22],"w"); 
+	FILE *diffBetweenGroups = fopen(argv[23],"w"); 
 	fprintf(diffBetweenGroups,"sim gen firstGroup	secondGroup	diffTotalResources	maxDiffGroupPayoffs	conflictOccurs\n");
 	
 	

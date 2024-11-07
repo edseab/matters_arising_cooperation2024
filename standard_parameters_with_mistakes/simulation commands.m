@@ -6,9 +6,9 @@
 // sudo apt install build-essential gnustep gnustep-devel gnustep-make gnustep-base-common gnustep-base-runtime libgnustep-base-dev gobjc
 // sudo apt-get install libgsl-dev
 // . /usr/share/GNUstep/Makefiles/GNUstep.sh
-// mkdir -p ~/standard_parameters
+// mkdir -p ~/standard_parameters_with_mistakes
 // ADD FILES TO THIS FOLDER
-// cd ~/standard_parameters/
+// cd ~/standard_parameters_with_mistakes/
 
 // gcc -c mt19937ar.c -o mt19937ar.o
 gcc `gnustep-config --objc-flags` -c main.m -o main.o
@@ -18,11 +18,21 @@ gcc -o main main.o ContGroupAgent.o mt19937ar.o -lgnustep-base -lobjc -lgsl -lgs
 
 // Revenge models with mistakes: set revengeAlpha and revengeBeta each to 0.1 in main.m and then compile
 // Model with Revenge Threshold
-./main 150001 100 2.0 100.0 0.5 100 0.0 0 999 999 0 0.02 1 16 3 1 0 1 0.5 "output_disagg_Rev_mistake0.1.txt" "output_agg_Rev_mistake0.1.txt" "output_diff_Rev_mistake0.1.txt" 101010
+./main 150001 100 2.0 100.0 0.5 100 0.0 0 999 999 0 0.02 0.025 1 16 3 1 0 1 0.5 "output_disagg_Rev_mistake0.1.txt" "output_agg_Rev_mistake0.1.txt" "output_diff_Rev_mistake0.1.txt" 101010
 // Model with Revenge Threshold starting selfish
-./main 150001 100 2.0 100.0 0.5 100 0.0 0 999 999 0 0.02 1 16 1 1 0 1 1.0 "output_disagg_Rev_selfish_mistake0.1.txt" "output_agg_Rev_selfish_mistake0.1.txt" "output_diff_Rev_selfish_mistake0.1.txt" 101010
+./main 150001 100 2.0 100.0 0.5 100 0.0 0 999 999 0 0.02 0.025 1 16 1 1 0 1 1.0 "output_disagg_Rev_selfish_mistake0.1.txt" "output_agg_Rev_selfish_mistake0.1.txt" "output_diff_Rev_selfish_mistake0.1.txt" 101010
 // Model with Revenge Thresholdstarting at 0 and starting selfish 
-./main 150001 100 2.0 100.0 0.5 100 0.0 0 999 999 0 0.02 1 16 1 1 0 1 0.0 "output_disagg_Rev_selfish0_mistake0.1.txt" "output_agg_Rev_selfish0_mistake0.1.txt" "output_diff_Rev_selfish0_mistake0.1.txt" 101010
+./main 150001 100 2.0 100.0 0.5 100 0.0 0 999 999 0 0.02 0.025 1 16 1 1 0 1 0.0 "output_disagg_Rev_selfish0_mistake0.1.txt" "output_agg_Rev_selfish0_mistake0.1.txt" "output_diff_Rev_selfish0_mistake0.1.txt" 101010
 
 // Categorical model with all possible functions: set revengeAlpha and revengeBeta to 0.0 in main.m then compile
-./main 150001 100 2.0 100.0 0.5 100 0.0 0 999 999 0 0.02 1 16 3 1 1 0 0.0 "output_disagg_cat_full.txt" "output_agg_cat_full.txt" "output_diff_cat_full.txt" 101010
+./main 150001 100 2.0 100.0 0.5 100 0.0 0 999 999 0 0.02 0.025 1 16 3 1 1 0 0.0 "output_disagg_cat_full.txt" "output_agg_cat_full.txt" "output_diff_cat_full.txt" 101010
+
+// same again but with increasingly large mutation lattice steps
+
+./main 150001 100 2.0 100.0 0.5 100 0.0 0 999 999 0 0.02 0.05 1 16 3 1 1 0 0.0 "output_disagg_cat_full.05.txt" "output_agg_cat_full.05.txt" "output_diff_cat_full.05.txt" 101010
+
+./main 150001 100 2.0 100.0 0.5 100 0.0 0 999 999 0 0.02 0.1 1 16 3 1 1 0 0.0 "output_disagg_cat_full.1.txt" "output_agg_cat_full.1.txt" "output_diff_cat_full.1.txt" 101010
+
+./main 150001 100 2.0 100.0 0.5 100 0.0 0 999 999 0 0.02 0.125 1 16 3 1 1 0 0.0 "output_disagg_cat_full.125.txt" "output_agg_cat_full.125.txt" "output_diff_cat_full.125.txt" 101010
+
+./main 150001 100 2.0 100.0 0.5 100 0.0 0 999 999 0 0.02 0.2 1 16 3 1 1 0 0.0 "output_disagg_cat_full.2.txt" "output_agg_cat_full.2.txt" "output_diff_cat_full.2.txt" 101010
